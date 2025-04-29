@@ -1,0 +1,1 @@
+# Dado el número matemático PI, se solicita al usuario que ingrese el valor del radio de una circunferencia y calcule y muestre por pantalla el área y perímetro. (área = PI * radio^2 y perímetro = 2 * PI * radio.
