@@ -1,0 +1,1 @@
+#2. Diseñar un algoritmo que elimine todas las vocales que se encuentren en una lista de caracteres.
