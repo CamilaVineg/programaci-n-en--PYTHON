@@ -1,20 +1,37 @@
-class Pila:
+from typing import Any, Optional
+
+
+class Stack:
+
     def __init__(self):
-        self.elementos = []
+        self.__elements = []
 
-    def apilar(self, datos: any):
-        self.elementos.append(datos)
+    def push(self, value: Any) -> None:
+        self.__elements.append(value)
 
-    def desapilar(self):
-        if not self.esta_vacia():
-            return self.elementos.pop()
+    def pop(self) -> Optional[Any]:
+        return (
+            self.__elements.pop()
+            if self.__elements
+            else None
+        )
 
-    def esta_vacia(self):
-        return len(self.elementos) == 0
+    def size(self) -> int:
+        return len(self.__elements)
 
-    def ver_tope(self):
-        if not self.esta_vacia():
-            return self.elementos[-1]
+    def on_top(self) -> Optional[Any]:
+        return (
+            self.__elements[-1]
+            if self.__elements
+            else None
+        )
 
-    def tamaño(self):
-        return len(self.elementos)
+    def show(self):
+        aux_stack = Stack()
+        while self.size() > 0:
+            value = self.pop()
+            print(value)
+            aux_stack.push(value)
+
+        while aux_stack.size() > 0:
+            self.push(aux_stack.pop())
