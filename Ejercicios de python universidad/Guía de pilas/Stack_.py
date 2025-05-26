@@ -6,27 +6,30 @@ class Stack:
     def __init__(self):
         self.__elements = []
 
-    def push(self, value: Any) -> None:
+    def apilar(self, value: Any) -> None:
         self.__elements.append(value)
 
-    def pop(self) -> Optional[Any]:
+    def desapilar(self) -> Optional[Any]:
         return (
             self.__elements.pop()
             if self.__elements
             else None
         )
 
-    def size(self) -> int:
+    def esta_vacia(self):
+        return len(self.elementos) == 0
+
+    def tamanio(self) -> int:
         return len(self.__elements)
 
-    def on_top(self) -> Optional[Any]:
+    def ver_tope(self) -> Optional[Any]:
         return (
             self.__elements[-1]
             if self.__elements
             else None
         )
 
-    def show(self):
+    def mostrar(self):
         aux_stack = Stack()
         while self.size() > 0:
             value = self.pop()
