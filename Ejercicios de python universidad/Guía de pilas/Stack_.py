@@ -16,8 +16,8 @@ class Stack:
             else None
         )
 
-    def esta_vacia(self):
-        return len(self.elementos) == 0
+    def esta_vacia(self) -> bool:
+        return len(self.__elements) == 0
 
     def tamanio(self) -> int:
         return len(self.__elements)
@@ -30,11 +30,10 @@ class Stack:
         )
 
     def mostrar(self):
-        aux_stack = Stack()
-        while self.size() > 0:
-            value = self.pop()
-            print(value)
-            aux_stack.push(value)
-
-        while aux_stack.size() > 0:
-            self.push(aux_stack.pop())
+        pila_aux = Stack()
+        while self.tamanio() > 0:
+            valor = self.desapilar()
+            print(valor)
+            pila_aux.apilar(valor)
+        while pila_aux.tamanio() > 0:
+            self.apilar(pila_aux.desapilar())
