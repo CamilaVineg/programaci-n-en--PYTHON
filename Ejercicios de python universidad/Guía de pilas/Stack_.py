@@ -16,9 +16,6 @@ class Stack:
             else None
         )
 
-    def esta_vacia(self) -> bool:
-        return len(self.__elements) == 0
-
     def tamanio(self) -> int:
         return len(self.__elements)
 
