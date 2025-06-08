@@ -12,162 +12,149 @@
 # f. mostrar los nombre de los trajes utilizados en las películas “Spider-Man: Homecoming” y
 # “Capitan America: Civil War”.
 
-class Pila:
-    def __init__(self):
-        self.elementos = []
-
-    def apilar(self, datos: any):
-        self.elementos.append(datos)
-
-    def desapilar(self):
-        if not self.esta_vacia():
-            return self.elementos.pop()
-
-    def esta_vacia(self):
-        return len(self.elementos) == 0
-
-    def ver_tope(self):
-        if not self.esta_vacia():
-            return self.elementos[-1]
-
-    def tamaño(self):
-        return len(self.elementos)
-
-# programa principal
-
-
-traje1 = {
-    "modelo": "Mark III",
-    "pelicula": "Iron Man",
-    "estado": "Impecable"
-}
-
-traje2 = {
-    "modelo": "Mark XLIV",
-    "pelicula": "Avengers: Age of Ultron",
-    "estado": "Dañado"
-}
-
-traje3 = {
-    "modelo": "Mark L",
-    "pelicula": "Avengers: Infinity War",
-    "estado": "Destruido"
-}
-
-traje4 = {"modelo": "Mark XLIII",
-          "pelicula": "El increible Hulk",
-          "estado": "Dañado"}
-
-traje5 = {"modelo": "Mark XLIV",
-          "pelicula": "El increible Hulk",
-          "estado": "Dañado"}
-
-traje6 = {"modelo": "Mark XLVI",
-          "pelicula": "Capitán América: Civil War",
-          "estado": "Impecable"}
-
-trajes_de_ironman = Pila()
-trajes_de_ironman.apilar(traje1)
-trajes_de_ironman.apilar(traje2)
-trajes_de_ironman.apilar(traje3)
-trajes_de_ironman.apilar(traje4)
-trajes_de_ironman.apilar(traje5)
-trajes_de_ironman.apilar(traje6)
+from Stack_ import Stack
 
 # A)))
-peliculas_con_Hulkbuster = []
-pila_aux = Pila()
 
-while not trajes_de_ironman.esta_vacia():
-    traje = trajes_de_ironman.ver_tope()
-    if traje["modelo"] == "Mark XLIV":
-        peliculas_con_Hulkbuster.append(traje["pelicula"])
 
-    trajes = trajes_de_ironman.desapilar()
-    pila_aux.apilar(trajes)
+def modelo_utilizado(trajes_de_ironman):
+    peliculas_con_Hulkbuster = []
+    pila_aux = Stack()
 
-while not pila_aux.esta_vacia():
-    trajes_de_ironman.apilar(pila_aux.desapilar())
+    while trajes_de_ironman.tamanio() > 0:
+        traje = trajes_de_ironman.desapilar()
+        if traje["modelo"] == "Mark XLIV":
+            peliculas_con_Hulkbuster.append(traje["pelicula"])
+        pila_aux.apilar(traje)
 
+    while pila_aux.tamanio() > 0:
+        trajes_de_ironman.apilar(pila_aux.desapilar())
+
+    return peliculas_con_Hulkbuster
+
+# B)))
+
+
+def trajes_dañados(trajes_de_ironman):
+    pila_aux = Stack()
+    modelos_dañados = []
+    while trajes_de_ironman.tamanio() > 0:
+        traje = trajes_de_ironman.ver_tope()
+        if traje["estado"] == "Dañado":
+            modelos_dañados.append(traje["modelo"])
+        traje = trajes_de_ironman.desapilar()
+        pila_aux.apilar(traje)
+
+    while pila_aux.tamanio() > 0:
+        trajes_de_ironman.apilar(pila_aux.desapilar())
+
+    return modelos_dañados
+
+# C)))
+
+
+def eliminar_trajes_destruidos(trajes_de_ironman):
+    pila_aux = Stack()
+    while trajes_de_ironman.tamanio() > 0:
+        traje = trajes_de_ironman.desapilar()
+        if traje["estado"] == "Destruido":
+            print(f"modelo eliminado: {traje['modelo']}")
+        else:
+            pila_aux.apilar(traje)
+
+    while pila_aux.tamanio() > 0:
+        trajes_de_ironman.apilar(pila_aux.desapilar())
+
+    return trajes_de_ironman
+
+# E)))
+
+
+def determinando_existencia_modelo(trajes_de_ironman):
+    pila_aux = Stack()
+    existe = False
+
+    while trajes_de_ironman.tamanio() > 0:
+        traje = trajes_de_ironman.desapilar()
+        if traje["modelo"] == "Mark LXXXV" and traje["pelicula"] == "Avengers: Endgame":
+            existe = True
+        pila_aux.apilar(traje)
+
+    while pila_aux.tamanio() > 0:
+        trajes_de_ironman.apilar(pila_aux.desapilar())
+
+    return existe
+
+
+def agregando_traje(trajes_de_ironman, existe):
+    if existe:
+        print("La wiki ya existe")
+    else:
+        trajes_de_ironman.apilar({
+            "modelo": "Mark LXXXV",
+            "pelicula": "Avengers: Endgame",
+            "estado": "Impecable"
+        })
+        print("Ya se ha agregado la wiki del modelo Mark LXXXV")
+    return trajes_de_ironman
+
+# F)))
+
+
+def mostrar_trajes_spiderman_civilwar(trajes_de_ironman):
+    pila_aux = Stack()
+    trajes_usados = []
+
+    while trajes_de_ironman.tamanio() > 0:
+        traje = trajes_de_ironman.desapilar()
+        if traje["pelicula"] == "Spider-Man: Homecoming" or traje["pelicula"] == "Capitán América: Civil War":
+            trajes_usados.append(traje)
+        pila_aux.apilar(traje)
+
+    while pila_aux.tamanio() > 0:
+        trajes_de_ironman.apilar(pila_aux.desapilar())
+    return trajes_usados
+
+# PROGRAMA PRINCIPAL
+
+
+trajes_de_ironman = Stack()
+
+trajes = [
+    {"modelo": "Mark III", "pelicula": "Iron Man", "estado": "Impecable"},
+    {"modelo": "Mark XLIV", "pelicula": "Avengers: Age of Ultron", "estado": "Dañado"},
+    {"modelo": "Mark L", "pelicula": "Avengers: Infinity War", "estado": "Destruido"},
+    {"modelo": "Mark XLIII", "pelicula": "El increible Hulk", "estado": "Dañado"},
+    {"modelo": "Mark XLIV", "pelicula": "El increible Hulk", "estado": "Dañado"},
+    {"modelo": "Mark XLVI", "pelicula": "Capitán América: Civil War",
+        "estado": "Impecable"},
+    {"modelo": "Mark XLVII", "pelicula": "Spider-Man: Homecoming", "estado": "Impecable"}
+]
+
+for traje in trajes:
+    trajes_de_ironman.apilar(traje)
+
+# A)))
+peliculas_con_Hulkbuster = modelo_utilizado(trajes_de_ironman)
 print("Películas donde se usó el Hulkbuster (Mark XLIV):")
 for peli in peliculas_con_Hulkbuster:
     print(f"- {peli}")
 
-
 # B)))
-
-trajes_dañados = []
-while not trajes_de_ironman.esta_vacia():
-    traje = trajes_de_ironman.ver_tope()
-    if traje["estado"] == "Dañado":
-        trajes_dañados.append(traje["modelo"])
-
-    trajes = trajes_de_ironman.desapilar()
-    pila_aux.apilar(traje)
-
-while not pila_aux.esta_vacia():
-    trajes_de_ironman.apilar(pila_aux.desapilar())
-
+modelos_dañados = trajes_dañados(trajes_de_ironman)
 print("\nModelos que quedaron dañados:")
-for modelo in trajes_dañados:
+for modelo in modelos_dañados:
     print(f"- {modelo}")
 
 # C)))
-
-while not trajes_de_ironman.esta_vacia():
-
-    traje = trajes_de_ironman.desapilar()
-    if traje["estado"] == "Destruido":
-        print(f"modelo eliminado: ", traje["modelo"])
-    else:
-        pila_aux.apilar(traje)
-
-while not pila_aux.esta_vacia():
-    trajes_de_ironman.apilar(pila_aux.desapilar())
+trajes_de_ironman = eliminar_trajes_destruidos(trajes_de_ironman)
 
 # E)))
-existe = False
-traje7 = {"modelo": "Mark LXXXV",
-          "pelicula": "Avengers: Endgame",
-          "estado": "Impecable"}
-
-while not trajes_de_ironman.esta_vacia():
-    traje = trajes_de_ironman.desapilar()
-    if traje["modelo"] == "Mark LXXXV" and traje["pelicula"] == "Avengers: Endgame":
-        existe = True
-    else:
-        pila_aux.apilar(traje)
-
-
-while not pila_aux.esta_vacia():
-    trajes_de_ironman.apilar(pila_aux.desapilar())
-
-
-if existe:
-    print("La wiki ya existe")
-else:
-    trajes_de_ironman.apilar(traje7)
-    print("Ya se ha agregado la wiki del modelo Mark LXXXV")
+existe = determinando_existencia_modelo(trajes_de_ironman)
+trajes_de_ironman = agregando_traje(trajes_de_ironman, existe)
 
 # F)))
-traje8 = {"modelo": "Mark XLVII",
-          "pelicula": "Spider-Man: Homecoming",
-          "estado": "Impecable"}
-
-trajes_de_ironman.apilar(traje8)
-
-trajes_usados = []
-
-while not trajes_de_ironman.esta_vacia():
-    traje = trajes_de_ironman.desapilar()
-    if traje["pelicula"] == "Spider-Man: Homecoming" or traje["pelicula"] == "Capitán América: Civil War":
-        trajes_usados.append(traje)
-
-    pila_aux.apilar(traje)
-
-while not pila_aux.esta_vacia():
-    trajes_de_ironman.apilar(pila_aux.desapilar())
-
+trajes_usados = mostrar_trajes_spiderman_civilwar(trajes_de_ironman)
 print("\nModelos usados en Spider-Man: Homecoming y Capitán América: Civil War:")
 for traje in trajes_usados:
     print(f"- {traje['modelo']} ({traje['pelicula']})")
