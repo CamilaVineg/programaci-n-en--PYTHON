@@ -6,10 +6,6 @@ class Cola:
         # Lista interna que representa la cola
         self.__elementos = []
 
-    def esta_vacia(self) -> bool:
-        # Devuelve True si la cola no tiene elementos
-        return len(self.__elementos) == 0
-
     def encolar(self, dato: Any) -> None:
         # Agrega un nuevo dato al final de la cola
         self.__elementos.append(dato)
