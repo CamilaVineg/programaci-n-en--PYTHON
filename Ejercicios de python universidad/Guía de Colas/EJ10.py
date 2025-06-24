@@ -9,7 +9,7 @@
 
 from Queue_ import Cola
 from datetime import datetime
-from Stack_ import Pila
+from Stack_ import Stack
 
 cola_notificaciones = Cola()
 
@@ -31,14 +31,14 @@ for notif in notificaciones:
 def eliminacion_facebook(cola_notificaciones):
     cola_aux = Cola()
     cont = 0
-    while not cola_notificaciones.esta_vacia():
+    while not cola_notificaciones.tamanio() > 0:
         notif = cola_notificaciones.desencolar()
         if notif["app"] == "Facebook":
             cont += 1
         else:
             cola_aux.encolar(notif)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_notificaciones.encolar(cola_aux.desencolar())
 
     return cont
@@ -49,7 +49,7 @@ def eliminacion_facebook(cola_notificaciones):
 def notificaciones_de_twitter(cola_notificaciones):
     cola_aux = Cola()
 
-    while not cola_notificaciones.esta_vacia():
+    while not cola_notificaciones.tamanio() > 0:
         notif = cola_notificaciones.desencolar()
 
         if notif["app"] == "Twitter" and "python" in notif["mensaje"].lower():
@@ -57,7 +57,7 @@ def notificaciones_de_twitter(cola_notificaciones):
 
         cola_aux.encolar(notif)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_notificaciones.encolar(cola_aux.desencolar())
 
     return None
@@ -67,10 +67,10 @@ def notificaciones_de_twitter(cola_notificaciones):
 
 def notif_dentro_del_horario(cola_notificaciones):
     cola_aux = Cola()
-    pila_aux = Pila()
+    pila_aux = Stack()
     cont = 0
 
-    while not cola_notificaciones.esta_vacia():
+    while not cola_notificaciones.tamanio() > 0:
         notif = cola_notificaciones.desencolar()
 
         hora_notif = datetime.strptime(notif["hora"], "%H:%M")
@@ -83,7 +83,7 @@ def notif_dentro_del_horario(cola_notificaciones):
 
         cola_aux.encolar(notif)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_notificaciones.encolar(cola_aux.desencolar())
 
     return cont

@@ -8,36 +8,17 @@
 # c. determinar en cuantas películas participo la Viuda Negra (Black Widow);
 # d. mostrar todos los personajes cuyos nombre empiezan con C, D y G.
 
-class Pila:
-    def __init__(self):
-        self.elementos = []
-
-    def apilar(self, datos: any):
-        self.elementos.append(datos)
-
-    def desapilar(self):
-        if not self.esta_vacia():
-            return self.elementos.pop()
-
-    def esta_vacia(self):
-        return len(self.elementos) == 0
-
-    def ver_tope(self):
-        if not self.esta_vacia():
-            return self.elementos[-1]
-
-    def tamaño(self):
-        return len(self.elementos)
+from Stack_ import Stack
 
 # A)))
 
 
 def posicion_de_buscados(personajes_de_marvel):
-    pila_aux = Pila()
+    pila_aux = Stack()
     pos = 1
     posiciones = {}
 
-    while not personajes_de_marvel.esta_vacia():
+    while not personajes_de_marvel.tamanio() > 0:
         pers = personajes_de_marvel.desapilar()
         if pers["nombre"] == "Rocket Raccoon":
             posiciones["Rocket Raccoon"] = pos
@@ -47,7 +28,7 @@ def posicion_de_buscados(personajes_de_marvel):
         pila_aux.apilar(pers)
         pos += 1
 
-    while not pila_aux.esta_vacia():
+    while not pila_aux.tamanio() > 0:
         personajes_de_marvel.apilar(pila_aux.desapilar())
 
     return posiciones
@@ -56,10 +37,10 @@ def posicion_de_buscados(personajes_de_marvel):
 
 
 def personajes_aparicion_mayor_a_5(personajes_de_marvel):
-    pila_aux = Pila()
+    pila_aux = Stack()
     personajes_mas_vistos = []
 
-    while not personajes_de_marvel.esta_vacia():
+    while not personajes_de_marvel.tamanio() > 0:
         pers = personajes_de_marvel.desapilar()
 
         if pers["apariciones en películas"] > 5:
@@ -67,7 +48,7 @@ def personajes_aparicion_mayor_a_5(personajes_de_marvel):
 
         pila_aux.apilar(pers)
 
-    while not pila_aux.esta_vacia():
+    while not pila_aux.tamanio() > 0:
         personajes_de_marvel.apilar(pila_aux.desapilar())
 
     return personajes_mas_vistos
@@ -76,10 +57,9 @@ def personajes_aparicion_mayor_a_5(personajes_de_marvel):
 
 
 def apariciones_viuda_negra(personajes_de_marvel):
-    pila_aux = Pila()
-    result = 0
+    pila_aux = Stack()
 
-    while not personajes_de_marvel.esta_vacia():
+    while not personajes_de_marvel.tamanio() > 0:
 
         pers = personajes_de_marvel.desapilar()
 
@@ -88,7 +68,7 @@ def apariciones_viuda_negra(personajes_de_marvel):
 
         pila_aux.apilar(pers)
 
-    while not pila_aux.esta_vacia():
+    while not pila_aux.tamanio() > 0:
         personajes_de_marvel.apilar(pila_aux.desapilar())
 
     return result
@@ -97,12 +77,12 @@ def apariciones_viuda_negra(personajes_de_marvel):
 
 
 def personajes_con_C_D_G(personajes_de_marvel):
-    pila_aux = Pila()
+    pila_aux = Stack()
     pers_C = []
     pers_D = []
     pers_G = []
 
-    while not personajes_de_marvel.esta_vacia():
+    while not personajes_de_marvel.tamanio() > 0:
 
         pers = personajes_de_marvel.desapilar()
         nombre = pers["nombre"]
@@ -116,7 +96,7 @@ def personajes_con_C_D_G(personajes_de_marvel):
 
         pila_aux.apilar(pers)
 
-    while not pila_aux.esta_vacia():
+    while not pila_aux.tamanio() > 0:
         personajes_de_marvel.apilar(pila_aux.desapilar())
 
     return (pers_C, pers_D, pers_G)
@@ -138,7 +118,7 @@ personaje_6 = {"nombre": "Black Widow",
 personaje_7 = {"nombre": "Rocket Raccoon",
                "apariciones en películas": 6}
 
-personajes_de_marvel = Pila()
+personajes_de_marvel = Stack()
 personajes_de_marvel.apilar(personaje_1)
 personajes_de_marvel.apilar(personaje_2)
 personajes_de_marvel.apilar(personaje_3)

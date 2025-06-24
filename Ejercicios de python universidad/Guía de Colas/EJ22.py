@@ -35,7 +35,7 @@ def nombre_capitanamarvel(cola_superheroes):
     cola_aux = Cola()
     aux = ""
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
 
         if super["superheroe"] == "Capitana Marvel":
@@ -43,7 +43,7 @@ def nombre_capitanamarvel(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return aux
@@ -55,7 +55,7 @@ def superheroes_femeninas(cola_superheroes):
     cola_aux = Cola()
     lista_aux = []
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
 
         if super["genero"] == "F":
@@ -63,7 +63,7 @@ def superheroes_femeninas(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return lista_aux
@@ -75,7 +75,7 @@ def superheroes_masculinos(cola_superheroes):
     cola_aux = Cola()
     lista_aux = []
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
 
         if super["genero"] == "M":
@@ -83,7 +83,7 @@ def superheroes_masculinos(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return lista_aux
@@ -92,7 +92,7 @@ def superheroes_masculinos(cola_superheroes):
 def nombre_de_superheroe_ScottLang(cola_superheroes):
     cola_aux = Cola()
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
 
         if super["personaje"] == "Scott Lang":
@@ -100,7 +100,7 @@ def nombre_de_superheroe_ScottLang(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return aux
@@ -112,7 +112,7 @@ def superheroes_inicial_S(cola_superheroes):
     cola_aux = Cola()
     lista_aux = []
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
         pers = super["personaje"]
         heroe = super["superheroe"]
@@ -122,7 +122,7 @@ def superheroes_inicial_S(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return lista_aux
@@ -134,7 +134,7 @@ def pregunta_esta_carolDanvers(cola_superheroes):
     cola_aux = Cola()
     heroenombre = ""
 
-    while not cola_superheroes.esta_vacia():
+    while not cola_superheroes.tamanio() > 0:
         super = cola_superheroes.desencolar()
 
         if super["personaje"] == "Carol Danvers":
@@ -142,7 +142,7 @@ def pregunta_esta_carolDanvers(cola_superheroes):
 
         cola_aux.encolar(super)
 
-    while not cola_aux.esta_vacia():
+    while not cola_aux.tamanio() > 0:
         cola_superheroes.encolar(cola_aux.desencolar())
 
     return heroenombre
