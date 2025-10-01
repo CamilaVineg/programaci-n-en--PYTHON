@@ -12,27 +12,13 @@ class List(list):
     ):
         self.CRITERION_FUNCTIONS[key_criterion] = function
 
-    def mostrar(
-        self
-    ) -> None:
-        for element in self:
-            print(element)
-
     def eliminar_elemento(
         self,
         value,
         key_value: str = None,
     ) -> Optional[Any]:
         index = self.buscar(value, key_value)
-        return self.pop(index) if index is not None else index
-
-#     def insertar_elemento(
-#         self,
-#         value: Any,
-#      ) -> None:
-#            # list_number.append(2)
-#            # list_number.insert(1, 11)
-#    # pass
+        return self.pop(index) if index is not None else None
 
     def ordenar_por_criterio(
         self,
@@ -51,13 +37,13 @@ class List(list):
         self,
         search_value,
         search_key: str = None,
-    ) -> int:
+    ) -> Optional[int]:
         self.ordenar_por_criterio(search_key)
         start = 0
         end = len(self) - 1
-        middle = (start + end) // 2
 
         while start <= end:
+            middle = (start + end) // 2
             criterion = self.CRITERION_FUNCTIONS.get(search_key)
             if criterion is None and self and not isinstance(self[0], (int, str, bool)):
                 return None
@@ -69,4 +55,8 @@ class List(list):
                 start = middle + 1
             else:
                 end = middle - 1
-            middle = (start + end) // 2
+        return None
+
+    def mostrar(self) -> None:
+        for element in self:
+            print(element)
