@@ -77,20 +77,18 @@ class BinaryTree:
             aux = __search(self.root, value)
         return aux
 
-    def proximity_search(self, value: Any) -> __nodeTree:
-        def __search(root, value):
+    def proximity_search(self, value: Any):
+        resultados = []
+
+        def __search(root):
             if root is not None:
                 if root.value.startswith(value):
-                    print(root.value)
-                # elif root.value > value:
-                __search(root.left, value)
-                # else:
-                __search(root.right, value)
-
-        aux = None
+                    resultados.append(root)
+                __search(root.left)
+                __search(root.right)
         if self.root is not None:
-            aux = __search(self.root, value)
-        return aux
+            __search(self.root)
+        return resultados
 
     def delete(self, value: Any):
         def __replace(root):
@@ -253,6 +251,13 @@ class BinaryTree:
                 __divide_tree(root.right, arbol_h, arbol_v)
 
         __divide_tree(self.root, arbol_h, arbol_v)
+
+    def count_nodes(self):
+        def __count_nodes(root):
+            if root is None:
+                return 0
+            return 1 + __count_nodes(root.left) + __count_nodes(root.right)
+        return __count_nodes(self.root)
 
 
 arbol = BinaryTree()
