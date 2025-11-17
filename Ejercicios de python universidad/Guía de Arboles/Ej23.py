@@ -1,6 +1,6 @@
 # 23. Implementar un algoritmo que permita generar un árbol con los datos de la siguiente tabla y
 # resuelva las siguientes consultas:
-# a. listado inorden de las criaturas y quienes la derrotaron;
+# a. listado in_orden de las criaturas y quienes la derrotaron;
 # b. se debe permitir cargar una breve descripción sobre cada criatura;
 # c. mostrar toda la información de la criatura Talos;
 # d. determinar los 3 héroes o dioses que derrotaron mayor cantidad de criaturas;
@@ -19,3 +19,57 @@
 # n. muestre las criaturas capturadas por Heracles.
 
 from tree import BinaryTree
+
+# a. listado in_orden de las criaturas y quienes la derrotaron
+
+arbol = BinaryTree()
+
+Criaturas = [ {"criatura" : "Ceto", "derrotado por" : None},
+             {"criatura" : "Tifón", "derrotado por" : "Zeus"},
+             {"criatura" : "Equidna", "derrotado por" : "Argos Panoptes"},
+             {"criatura" : "Dino", "derrotado por" :  None},
+             {"criatura" : "Pefredo", "derrotado por" :  None},
+             {"criatura" : "Enio", "derrotado por" :  None},
+             {"criatura" : "Escila", "derrotado por" :  None},
+             {"criatura" : "Caribdis", "derrotado por" : None},
+             {"criatura" : "Euríale", "derrotado por" : None},
+             {"criatura" : "Esteno", "derrotado por" : None},
+             {"criatura" : "Medusa", "derrotado por" : "Perseo"},
+             {"criatura" : "Ladón", "derrotado por" : "Heracles"},
+             {"criatura" : "Águila del Cáucaso", "derrotado por" :  None},
+             {"criatura" : "Quimera", "derrotado por" : "Belerofonte"},
+             {"criatura" : "Hidra de Lerna", "derrotado por" : "Heracles"},
+             {"criatura" : "León de Nemea", "derrotado por" : "Heracles"},
+             {"criatura" : "Esfinge", "derrotado por" : "Edipo"},
+             {"criatura" : "Dragón de la Cólquida", "derrotado por" :  None},
+             {"criatura" : "Cerbero", "derrotado por" :  None},
+             {"criatura" : "Cerda de Cromión", "derrotado por" : "Teseo"},
+             {"criatura" : "Ortro", "derrotado por" : "Heracles"},
+             {"criatura" : "Toro de Creta", "derrotado por" : "Teseo"},
+             {"criatura" : "Jabalí de Calidón", "derrotado por" : "Atalanta"},
+             {"criatura" : "Carcinos", "derrotado por" :  None},
+             {"criatura" : "Gerión", "derrotado por" : "Heracles"},
+             {"criatura" : "Cloto", "derrotado por" :  None},
+             {"criatura" : "Láquesis", "derrotado por" :  None},
+             {"criatura" : "Átropos", "derrotado por" :  None},
+             {"criatura" : "Minotauro de Creta", "derrotado por" : "Teseo"},
+             {"criatura" : "Harpías", "derrotado por" :  None},
+             {"criatura" : "Argos Panoptes", "derrotado por" : "Hermes"},
+             {"criatura" : "Aves del Estínfalo", "derrotado por" :  None},
+             {"criatura" : "Talos", "derrotado por" : "Medea"},
+             {"criatura" : "Sirenas", "derrotado por" :  None},
+             {"criatura" : "Pitón", "derrotado por" : "Apolo"},
+             {"criatura" : "Cierva de Cerinea", "derrotado por" :  None},
+             {"criatura" : "Basilisco", "derrotado por" :  None},
+             {"criatura" : "Jabalí de Erimanto", "derrotado por" :  None},
+             ]
+
+for cria in Criaturas:
+    arbol.insert(
+            cria["criatura"],
+            {
+                "derrotado por": cria["derrotado por"]}
+        )
+
+arbol.in_order()
+print()

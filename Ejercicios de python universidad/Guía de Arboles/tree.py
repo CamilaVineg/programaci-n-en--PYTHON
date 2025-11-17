@@ -46,7 +46,7 @@ class BinaryTree:
         def __in_order(root):
             if root is not None:
                 __in_order(root.left)
-                print(root.value)
+                print(root.value, root.other_values)
                 __in_order(root.right)
 
         if self.root is not None:
@@ -56,7 +56,7 @@ class BinaryTree:
         def __post_order(root):
             if root is not None:
                 __post_order(root.right)
-                print(root.value)
+                print(root.value, root.other_values)
                 __post_order(root.left)
 
         if self.root is not None:
@@ -79,15 +79,18 @@ class BinaryTree:
 
     def proximity_search(self, value: Any):
         resultados = []
+        value = value.lower()
 
         def __search(root):
             if root is not None:
-                if root.value.startswith(value):
+                if root.value.lower().startswith(value):
                     resultados.append(root)
                 __search(root.left)
                 __search(root.right)
+
         if self.root is not None:
             __search(self.root)
+
         return resultados
 
     def delete(self, value: Any):
@@ -131,6 +134,18 @@ class BinaryTree:
                 self.root, value)
 
         return delete_value, deleter_other_values
+
+    def divide_tree(self, arbol_h, arbol_v):
+        def __divide_tree(root, arbol_h, arbol_v):
+            if root is not None:
+                if root.other_values["is_villain"] is False:
+                    arbol_h.insert(root.value, root.other_values)
+                else:
+                    arbol_v.insert(root.value, root.other_values)
+                __divide_tree(root.left, arbol_h, arbol_v)
+                __divide_tree(root.right, arbol_h, arbol_v)
+
+        __divide_tree(self.root, arbol_h, arbol_v)
 
     def by_level(self):
         tree_queue = Cola()
@@ -239,18 +254,6 @@ class BinaryTree:
             return contador
 
         return __contar_repeticiones(self.root)
-
-    def divide_tree(self, arbol_h, arbol_v):
-        def __divide_tree(root, arbol_h, arbol_v):
-            if root is not None:
-                if root.other_values["is_villain"] is False:
-                    arbol_h.insert(root.value, root.other_values)
-                else:
-                    arbol_v.insert(root.value, root.other_values)
-                __divide_tree(root.left, arbol_h, arbol_v)
-                __divide_tree(root.right, arbol_h, arbol_v)
-
-        __divide_tree(self.root, arbol_h, arbol_v)
 
     def count_nodes(self):
         def __count_nodes(root):
