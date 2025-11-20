@@ -51,8 +51,9 @@ class Graph(List):
     def insert_vertex(
         self,
         value: Any,
+        other_values: Optional[Any] = None,
     ) -> None:
-        node_vertex = Graph.__nodeVertex(value)
+        node_vertex = Graph.__nodeVertex(value, other_values)
         self.append(node_vertex)
 
     def insert_edge(self, origin_vertex: Any, destination_vertex: Any, weight: int) -> None:
@@ -61,7 +62,7 @@ class Graph(List):
         if origin is not None and destination is not None:
             node_edge = Graph.__nodeEdge(destination_vertex, weight)
             self[origin].edges.append(node_edge)
-            if self.is_directed and origin != destination:
+            if not self.is_directed and origin != destination:
                 node_edge = Graph.__nodeEdge(origin_vertex, weight)
                 self[destination].edges.append(node_edge)
         else:
@@ -76,7 +77,7 @@ class Graph(List):
         pos_origin = self.buscar(origin, key_value)
         if pos_origin is not None:
             edge = self[pos_origin].edges.delete_value(destination, key_value)
-            if self.is_directed and edge is not None:
+            if not self.is_directed and edge is not None:
                 pos_destination = self.buscar(destination, key_value)
                 if pos_destination is not None:
                     self[pos_destination].edges.delete_value(origin, key_value)
@@ -146,16 +147,17 @@ class Graph(List):
         if vertex_pos is not None:
             if not self[vertex_pos].visited:
                 self[vertex_pos].visited = True
-                queue_vertex.arrive(self[vertex_pos])
-                while queue_vertex.size() > 0:
-                    vertex = queue_vertex.attention()
+                queue_vertex.encolar(self[vertex_pos])
+                while queue_vertex.tamanio() > 0:
+                    vertex = queue_vertex.desencolar()
                     print(vertex.value)
                     for edge in vertex.edges:
                         destination_edge_pos = self.buscar(edge.value, 'value')
                         if destination_edge_pos is not None:
                             if not self[destination_edge_pos].visited:
                                 self[destination_edge_pos].visited = True
-                                queue_vertex.arrive(self[destination_edge_pos])
+                                queue_vertex.encolar(
+                                    self[destination_edge_pos])
 
     def dijkstra(self, origin):
         from math import inf
@@ -180,7 +182,7 @@ class Graph(List):
         return path
 
     def kruskal(self, origin_vertex):
-        def buscar_in_forest(forest, value):
+        def search_in_forest(forest, value):
             for index, tree in enumerate(forest):
                 if value in tree:
                     return index
@@ -194,8 +196,8 @@ class Graph(List):
 
         while len(forest) > 1 and edges.tamanio() > 0:
             edge = edges.desapilar()
-            origin = buscar_in_forest(forest, edge[1][0])
-            destination = buscar_in_forest(forest, edge[1][1])
+            origin = search_in_forest(forest, edge[1][0])
+            destination = search_in_forest(forest, edge[1][1])
             if origin is not None and destination is not None:
                 if origin != destination:
                     if origin > destination:
@@ -218,6 +220,6 @@ class Graph(List):
                         forest.append(vertex_origin+';'+vertex_destination +
                                       ';'+f'{edge[1][0]}-{edge[1][1]}-{edge[0]}')
 
-        from_vertex = buscar_in_forest(forest, origin_vertex)
+        from_vertex = search_in_forest(forest, origin_vertex)
 
         return forest[from_vertex] if from_vertex is not None else forest
