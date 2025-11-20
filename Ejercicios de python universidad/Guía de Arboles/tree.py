@@ -261,6 +261,44 @@ class BinaryTree:
                 return 0
             return 1 + __count_nodes(root.left) + __count_nodes(root.right)
         return __count_nodes(self.root)
+    
+    
+    def in_order_height(self):
+        def __in_order_height(root):
+            if root is not None:
+                __in_order_height(root.left)
+                if root.other_values['height'] > 100:
+                    print(root.value, root.other_values['height'])
+                __in_order_height(root.right)
+
+        if self.root is not None:
+            __in_order_height(self.root)
+    
+    def in_order_weight(self):
+        def __in_order_weight(root):
+            if root is not None:
+                __in_order_weight(root.left)
+                if root.other_values['weight'] < 75:
+                    print(root.value, root.other_values['weight'])
+                __in_order_weight(root.right)
+
+        if self.root is not None:
+            __in_order_weight(self.root)
+
+    def ranking(self, ranking_result):
+        def __ranking(root, ranking_result):
+            if root is not None:
+                __ranking(root.left, ranking_result)
+                hero = root.other_values['derrotado_por']
+                if hero is not None:
+                    if hero not in ranking_result:
+                        ranking_result[hero] = 1
+                    else:
+                        ranking_result[hero] += 1
+                __ranking(root.right, ranking_result)
+
+        if self.root is not None:
+            __ranking(self.root, ranking_result)
 
 
 arbol = BinaryTree()
