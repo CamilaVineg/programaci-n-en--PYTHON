@@ -1,4 +1,5 @@
 
+
 from typing import Any, Optional
 
 
@@ -8,7 +9,7 @@ class Stack:
         self.__elements = []
 
 
-    def aoilar(self, value: Any) -> None:
+    def apilar(self, value: Any) -> None:
         self.__elements.append(value)
 
     def desapilar(self) -> Optional[Any]:

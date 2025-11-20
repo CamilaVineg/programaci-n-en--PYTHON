@@ -8,9 +8,9 @@ class HeapMax:
     def tamanio(self) -> int:
         return len(self.elements)
 
-    def agregar_prioridad(self, value: Any) -> None:
+    def agregar(self, value: Any) -> None:
         self.elements.append(value)
-        self.float(self.size()-1)
+        self.flotar(self.tamanio()-1)
     
     def eliminar(self) -> Any:
         last = self.tamanio() -1
@@ -23,7 +23,7 @@ class HeapMax:
         father = (index - 1) // 2
         while index > 0 and self.elements[index] > self.elements[father]:
             # print(f'flotar desde {index} a {father}')
-            self.interchange(index, father)
+            self.intercambio(index, father)
             index = father
             father = (index - 1) // 2
 
@@ -58,7 +58,7 @@ class HeapMax:
 
     def apilar(self, value: Any, priority: int) -> None:
         # priority 1-low, 2-medium, 3-high
-        self.agregar_prioridad([priority, value])
+        self.agregar([priority, value])
     
     def desapilar(self) -> Any:
         value = self.eliminar()
@@ -73,7 +73,7 @@ class HeapMin:
     def tamanio(self) -> int:
         return len(self.elements)
 
-    def agregar_prioridad(self, value: Any) -> None:
+    def agregar(self, value: Any) -> None:
         self.elements.append(value)
         self.flotar(self.tamanio()-1)
     
@@ -99,16 +99,16 @@ class HeapMin:
     def hundir(self, index: int) -> None:
         left_son = (2 * index) + 1
         control = True
-        while control and left_son < self.size():
+        while control and left_son < self.tamanio():
             right_son = left_son + 1
 
             minor = left_son
-            if right_son < self.size():
+            if right_son < self.tamanio():
                 if self.elements[right_son] < self.elements[minor]:
                     minor = right_son
 
             if self.elements[index] > self.elements[minor]:
-                self.interchange(index, minor)
+                self.intercambio(index, minor)
                 index = minor
                 left_son = (2 * index) + 1
             else:
@@ -128,10 +128,10 @@ class HeapMin:
 
     def apilar(self, value: Any, priority: int) -> None:
         # priority 1-low, 2-medium, 3-high
-        self.add([priority, value])
+        self.agregar([priority, value])
     
     def desapilar(self) -> Any:
-        value = self.remove()
+        value = self.eliminar()
         return value
 
     def cambiar_prioridad(self, index, new_priority):
